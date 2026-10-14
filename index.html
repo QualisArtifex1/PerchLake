@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="The Perch Lake house guide. A little care for a place we love.">
+  <meta name="theme-color" content="#203e37">
+  <title>Perch Lake · The house guide</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="#overview" aria-label="Perch Lake home"><span class="brand-mark" aria-hidden="true">⌁</span><span>PERCH LAKE<small>THE HOUSE GUIDE</small></span></a>
+    <nav aria-label="Main navigation"><a href="#overview">Overview</a><a href="#house">The house</a><a href="#maintenance">Maintenance</a><a href="#contacts">People</a><a href="#checklist">Before you leave</a></nav>
+    <button class="search-toggle" type="button" aria-label="Search the guide"><span aria-hidden="true">⌕</span> <span>Find something</span></button>
+  </header>
+  <main id="main">
+    <section class="hero" id="overview" aria-labelledby="hero-title">
+      <img src="assets/perch-lake.webp" alt="Our lake house at sunset, viewed from the dock on Perch Lake" fetchpriority="high" width="1536" height="1006">
+      <div class="hero-shade"></div>
+      <div class="hero-content"><p class="eyebrow">OUR PLACE BY THE WATER</p><h1 id="hero-title">Make yourself<br>at home.</h1><p>A little care for a place we love.<br>Everything to help keep lake life simple.</p><a class="button light" href="#checklist">Heading home? <span>Departure checklist ↗</span></a></div>
+      <div class="hero-caption"><span class="small-rule"></span> GOOD DAYS START HERE.</div>
+    </section>
+    <div class="address-bar"><div><span class="pin" aria-hidden="true">⌖</span><div><span class="eyebrow">THE LAKE HOUSE</span><address>11159 Perch Lake Dr W, <span>Cement City, MI 49233</span></address></div></div><a href="https://www.google.com/maps/search/?api=1&query=11159%20Perch%20Lake%20Dr%20W%2C%20Cement%20City%2C%20MI%2049233" target="_blank" rel="noopener noreferrer">Get directions <span aria-hidden="true">↗</span></a></div>
+    <div class="page-content">
+      <section class="welcome-section"><div><p class="eyebrow green">A HOME, WELL CARED FOR</p><h2>Less figuring things out.<br>More time at the lake.</h2></div><p>One place for the little things that make a stay easy—from getting settled in to leaving the house ready for the next visit.</p></section>
+      <div class="quick-grid" aria-label="Explore the guide">
+        <a href="#house"><span class="card-icon" data-icon="key"></span><h3>Settle in</h3><p>Keys, Wi-Fi & house essentials</p><span class="arrow">↗</span></a>
+        <a href="#maintenance"><span class="card-icon" data-icon="calendar"></span><h3>Keep it running</h3><p>Filters, upkeep & seasonal care</p><span class="arrow">↗</span></a>
+        <a href="#contacts"><span class="card-icon" data-icon="people"></span><h3>Know who to call</h3><p>Local providers & neighbors</p><span class="arrow">↗</span></a>
+        <a href="#hoa"><span class="card-icon" data-icon="home"></span><h3>Stay on top of it</h3><p>HOA fees & helpful records</p><span class="arrow">↗</span></a>
+      </div>
+      <section class="guide-section" id="house"><div class="section-heading"><div><p class="eyebrow green">01 / GETTING SETTLED</p><h2>The house essentials.</h2></div><p>The details you need when you arrive.</p></div><div class="essentials-grid" id="essentials"></div></section>
+      <section class="guide-section" id="maintenance"><div class="section-heading"><div><p class="eyebrow green">02 / A LITTLE REGULAR CARE</p><h2>Keep the good days going.</h2></div><span class="outline-label">House schedule</span></div><div class="maintenance-panel"><div class="panel-intro"><h3>Maintenance & filter changes</h3><p>Dates and intervals will appear here once confirmed for the house.</p></div><div class="table-scroll"><table><thead><tr><th scope="col">What needs care</th><th scope="col">Frequency</th><th scope="col">Last completed</th><th scope="col">Next due</th></tr></thead><tbody id="maintenance-rows"></tbody></table></div><div class="table-note"><span class="status-dot"></span> No dates recorded yet. Nothing is marked overdue until a schedule is set.</div></div><div class="seasonal-note"><span data-icon="leaf"></span><p><strong>A change of season, a little extra care.</strong> Add the house’s spring opening and winter preparation instructions as they’re confirmed.</p></div></section>
+      <section class="departure" id="checklist"><div class="departure-intro"><p class="eyebrow">03 / UNTIL NEXT TIME</p><h2>Leave it ready<br>for the next<br>good weekend.</h2><p>A quick walk-through before you head home.</p><div class="departure-art" aria-hidden="true"><svg viewBox="0 0 260 125"><path d="M35 69 95 19l60 50M48 60v51h94V60M81 111V76h28v35M164 111V48m-20 25 20-32 21 32m-32-16 11-22 12 22M16 119q20-9 40 0t40 0t40 0t40 0t40 0t40 0"/></svg></div><span class="suggestion-label">Starter checklist · customize for your home</span></div><div class="checklist-panel"><div class="checklist-top"><div><h3>Before you leave</h3><p id="progress-label" aria-live="polite">0 of 8 complete</p></div><button id="reset-checklist" class="text-button" type="button">Reset</button></div><progress id="checklist-progress" max="8" value="0" aria-label="Departure checklist completion"></progress><div id="checklist-items"></div><p class="local-note" id="storage-note">Your checkmarks stay on this device. Reset for each visit.</p></div></section>
+      <section class="guide-section" id="contacts"><div class="section-heading"><div><p class="eyebrow green">04 / GOOD PEOPLE TO KNOW</p><h2>A little help, close by.</h2></div><div class="filter-group" role="group" aria-label="Contact category"><button class="active" type="button" data-filter="all" aria-pressed="true">Everyone</button><button type="button" data-filter="provider" aria-pressed="false">Providers</button><button type="button" data-filter="neighbor" aria-pressed="false">Neighbors</button></div></div><div class="contacts-grid" id="contact-cards"></div><p class="section-note">Contact details are waiting to be added. Only include information suitable for a public website.</p></section>
+      <section class="guide-section records-grid" id="hoa"><div class="records-card"><p class="eyebrow green">05 / THE PRACTICAL DETAILS</p><h2>HOA & house records.</h2><p>Keep the recurring details in one easy-to-find place.</p><dl id="hoa-details"></dl></div><div class="future-card"><span class="card-icon" data-icon="book"></span><p class="eyebrow green">ROOM TO GROW</p><h2>A guide that grows<br>with the house.</h2><p>Appliance manuals, trash pickup, dock care, favorite local spots—there’s a place for all the useful things we learn along the way.</p><details><summary>What to add next <span>+</span></summary><ul><li>Filter sizes and replacement part numbers</li><li>Trash and recycling collection days</li><li>Appliance instructions and manuals</li><li>Dock, boat, and seasonal care</li><li>House-specific arrival and departure notes</li></ul></details></div></section>
+      <aside class="public-note"><span data-icon="info"></span><p>This guide is on the public web. Keep key locations, access codes, passwords, and private personal information off this page.</p></aside>
+    </div>
+  </main>
+  <footer><a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">⌁</span><span>PERCH LAKE<small>A PLACE TO COME BACK TO.</small></span></a><p>Take care of the house.<br>Take the lake days with you.</p><a href="#overview">Back to the top ↑</a></footer>
+  <dialog id="search-dialog" aria-labelledby="search-title"><div class="dialog-heading"><h2 id="search-title">Find it in the guide.</h2><button type="button" id="close-search" aria-label="Close search">✕</button></div><label for="guide-search">Search house information</label><input id="guide-search" type="search" placeholder="Try filters, electrician, or HOA…" autocomplete="off"><p id="search-summary" aria-live="polite"></p><div id="search-results"></div></dialog>
+  <noscript><p class="noscript">Enable JavaScript to load house details, contacts, search, and the departure checklist.</p></noscript>
+</body>
+</html>
