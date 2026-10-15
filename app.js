@@ -14,15 +14,18 @@ const icons = {
 const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const icon = name => `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">${icons[name] || icons.home}</svg>`;
 document.querySelectorAll('[data-icon]').forEach(el => { el.innerHTML = icon(el.dataset.icon); });
-document.querySelector('#essentials').innerHTML = guide.essentials.map(item => `<article class="essential-card"><span class="card-icon">${icon(item.icon)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p><span class="pill">${escapeHtml(item.label)}</span></article>`).join('');
+document.querySelector('#essentials').innerHTML = guide.essentials.map(item => `<article class="essential-card"><span class="card-icon">${icon(item.icon)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p>${item.href ? `<a class="pill" href="${escapeHtml(item.href)}">${escapeHtml(item.label)} ↗</a>` : `<span class="pill">${escapeHtml(item.label)}</span>`}</article>`).join('');
 function displayDate(value) {
   if (!value) return 'Not recorded';
   const date = new Date(`${value}T12:00:00`);
   return Number.isNaN(date.getTime()) ? escapeHtml(value) : date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
-document.querySelector('#maintenance-rows').innerHTML = guide.maintenance.map(item => `<tr><td>${escapeHtml(item.title)}<small>${escapeHtml(item.detail)}</small></td><td>${escapeHtml(item.frequency || 'To confirm')}</td><td>${displayDate(item.last)}</td><td><span class="date-pill">${item.next ? displayDate(item.next) : 'To be scheduled'}</span></td></tr>`).join('');
+document.querySelector('#maintenance-rows').innerHTML = guide.maintenance.map(item => `<tr><td>${escapeHtml(item.title)}<small>${escapeHtml(item.detail)}</small></td><td>${escapeHtml(item.frequency || 'To confirm')}</td><td>${displayDate(item.last)}</td><td><span class="date-pill">${item.next ? displayDate(item.next) : item.frequency === 'As needed' ? 'Check salt level' : 'To be scheduled'}</span></td></tr>`).join('');
 if (guide.maintenance.some(item => item.last || item.next)) document.querySelector('.table-note').textContent = 'Dates are recorded by the family. Check the schedule before planning service.';
-document.querySelector('#hoa-details').innerHTML = guide.hoa.map(item => `<div><dt>${escapeHtml(item.label)}</dt><dd>${escapeHtml(item.value || 'To be added')}</dd></div>`).join('');
+document.querySelector('#hoa-details').innerHTML = guide.hoa.map(item => `<div><dt>${escapeHtml(item.label)}</dt><dd>${item.phone ? `<a href="tel:${escapeHtml(item.phone.replace(/[^+\d]/g, ''))}">${escapeHtml(item.value)}</a>` : escapeHtml(item.value || 'To be added')}</dd></div>`).join('');
+document.querySelector('#water-care').innerHTML = guide.waterCare.map(item => `<article class="water-care-card"><span class="pill">${escapeHtml(item.badge)}</span><h4>${escapeHtml(item.title)}</h4><p>${escapeHtml(item.intro)}</p><ol>${item.steps.map(step => `<li>${escapeHtml(step)}</li>`).join('')}</ol><p class="care-note">${escapeHtml(item.note)}</p>${item.source ? `<p class="care-source"><a href="${escapeHtml(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.source.title)} ↗</a><span>${escapeHtml(item.source.note)}</span></p>` : ''}</article>`).join('');
+ document.querySelector('#water-photo-grid').innerHTML = guide.waterPhotos.map(item => `<figure><a href="assets/water-system/${escapeHtml(item.file)}" target="_blank" rel="noopener noreferrer" aria-label="Open photo: ${escapeHtml(item.title)}"><img src="assets/water-system/${escapeHtml(item.file)}" alt="${escapeHtml(item.alt)}" loading="lazy" width="1200" height="1600"><span>Open photo ↗</span></a><figcaption><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.caption)}</p></figcaption></figure>`).join('');
+ document.querySelector('a[href="#water-photos"]').addEventListener('click', () => { document.querySelector('#water-photos').open = true; });
 function renderContacts(filter = 'all') {
   document.querySelector('#contact-cards').innerHTML = guide.contacts.filter(item => filter === 'all' || item.category === filter).map(item => `<article class="contact-card"><span class="contact-avatar">${icon(item.category === 'neighbor' ? 'people' : 'home')}</span><div><h3>${escapeHtml(item.role)}</h3><p>${escapeHtml(item.name || 'Contact to add')}</p>${item.phone ? `<a href="tel:${escapeHtml(item.phone.replace(/[^+\d]/g, ''))}">${escapeHtml(item.phone)}</a>` : ''}<small>${escapeHtml(item.note)}</small></div></article>`).join('');
 }
@@ -61,7 +64,9 @@ const searchInput = document.querySelector('#guide-search');
 const index = [
   ...guide.essentials.map(item => ({ title: item.title, text: `${item.text} ${item.label}`, href: '#house' })),
   ...guide.maintenance.map(item => ({ title: item.title, text: `${item.detail}. ${item.frequency || 'Schedule to confirm'}`, href: '#maintenance' })),
-  ...guide.contacts.map(item => ({ title: item.role, text: `${item.name || 'Contact to add'}. ${item.note}`, href: '#contacts' })),
+  ...guide.contacts.map(item => ({ title: item.role, text: `${item.name || 'Contact to add'}. ${item.phone || ''} ${item.note}`, href: '#contacts' })),
+  ...guide.waterCare.map(item => ({ title: item.title, text: `${item.badge}. ${item.intro} ${item.steps.join(' ')} ${item.note}`, href: '#water-system' })),
+  ...guide.waterPhotos.map(item => ({ title: item.title, text: item.caption, href: '#water-photos' })),
   ...guide.checklist.map(item => ({ title: item.title, text: item.detail, href: '#checklist' })),
   { title: 'HOA fees & house records', text: guide.hoa.map(item => `${item.label}: ${item.value || 'To be added'}`).join(' · '), href: '#hoa' },
   { title: 'Lake house address', text: '11159 Perch Lake Dr W, Cement City, MI 49233', href: '#overview' },
@@ -76,4 +81,4 @@ function search() {
 document.querySelector('.search-toggle').addEventListener('click', () => { searchDialog.showModal(); searchInput.focus(); search(); });
 document.querySelector('#close-search').addEventListener('click', () => searchDialog.close());
 searchInput.addEventListener('input', search);
-document.querySelector('#search-results').addEventListener('click', event => { const link = event.target.closest('a'); if (link) { if (link.hash === '#contacts') { document.querySelector('[data-filter="all"]').click(); } searchDialog.close(); } });
+document.querySelector('#search-results').addEventListener('click', event => { const link = event.target.closest('a'); if (link) { if (link.hash === '#water-photos') document.querySelector('#water-photos').open = true; if (link.hash === '#contacts') { document.querySelector('[data-filter="all"]').click(); } searchDialog.close(); } });
